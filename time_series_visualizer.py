@@ -9,7 +9,10 @@ df = pd.read_csv('fcc-forum-pageviews.csv')
 df.set_index('date', inplace = True)
 
 # Clean data
-df = None
+upper_bound = df['value'].quantile(0.025)
+lower_bound = df['value'].quantile(0.975)
+
+df = df.loc[(df['value'] < upper_bound) & (df['value'] > lower_bound)] 
 
 
 def draw_line_plot():
