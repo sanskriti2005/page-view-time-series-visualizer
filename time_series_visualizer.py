@@ -17,8 +17,11 @@ df = df.loc[(df['value'] < upper_bound) & (df['value'] > lower_bound)]
 
 def draw_line_plot():
     # Draw line plot
-
-
+    fig,ax = plt.subplots(figsize=(10,9))
+    plt.plot(df.index, df['value'])
+    plt.title("Daily freeCodeCamp Forum Page Views 5/2016-12/2019")
+    plt.xlabel("Date")
+    plt.ylabel("Page Views")
 
 
 
@@ -31,8 +34,6 @@ def draw_bar_plot():
     df_bar = None
 
     # Draw bar plot
-
-
 
 
 
