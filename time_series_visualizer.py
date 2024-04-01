@@ -12,7 +12,9 @@ df.set_index('date', inplace = True)
 upper_bound = df['value'].quantile(0.025)
 lower_bound = df['value'].quantile(0.975)
 
-df = df.loc[(df['value'] < upper_bound) & (df['value'] > lower_bound)] 
+
+df = df[(df['value'] >= upper_bound) & (df['value'] <= lower_bound)] 
+df.index = pd.to_datetime(df.index)
 
 
 def draw_line_plot():
