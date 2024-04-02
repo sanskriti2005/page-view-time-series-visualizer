@@ -14,7 +14,6 @@ lower_bound = df['value'].quantile(0.975)
 
 
 df = df[(df['value'] >= upper_bound) & (df['value'] <= lower_bound)] 
-df.index = pd.to_datetime(df.index)
 
 
 def draw_line_plot():
@@ -33,11 +32,16 @@ def draw_line_plot():
 
 def draw_bar_plot():
     # Copy and modify data for monthly bar plot
-    df_bar = None
+    df_bar = df
+    df_bar['month'] = pd.DateTimeIndex(df_bar['date']).month
+    df_bar['year'] = pd.DateTimeIndex(df_bar['date']).year
+    df_bar.set_index('month', inplace = True)
 
+    value = df['value'].groupby('year')
     # Draw bar plot
 
-
+    fig, ax = plt.subplots(figsize=(10,9))
+    value.plot(kind='bar')
 
     # Save image and return fig (don't change this part)
     fig.savefig('bar_plot.png')
