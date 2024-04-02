@@ -37,7 +37,7 @@ def draw_bar_plot():
     df_bar['year'] = pd.DateTimeIndex(df_bar['date']).year
     df_bar.set_index('month', inplace = True)
 
-    value = df['value'].groupby('year')
+    value = df_bar['value'].groupby('year')
     # Draw bar plot
 
     fig, ax = plt.subplots(figsize=(10,9))
