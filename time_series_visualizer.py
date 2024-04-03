@@ -32,16 +32,17 @@ def draw_line_plot():
 
 def draw_bar_plot():
     # Copy and modify data for monthly bar plot
-    df_bar = df
-    df_bar['month'] = pd.DateTimeIndex(df_bar['date']).month
-    df_bar['year'] = pd.DateTimeIndex(df_bar['date']).year
-    df_bar.set_index('month', inplace = True)
+    df_bar = df.copy()
+    df_bar['month'] = pd.DatetimeIndex(df_bar.index).month
+    df_bar['year'] = pd.DatetimeIndex(df_bar.index).year
 
-    value = df_bar['value'].groupby('year')
+    value = df_bar.groupby(['year', 'month'])['value'].mean().unstack()
     # Draw bar plot
 
     fig, ax = plt.subplots(figsize=(10,9))
     value.plot(kind='bar')
+    plt.xlabel("Years")
+    plt.legend(['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'])
 
     # Save image and return fig (don't change this part)
     fig.savefig('bar_plot.png')
@@ -63,3 +64,4 @@ def draw_box_plot():
     # Save image and return fig (don't change this part)
     fig.savefig('box_plot.png')
     return fig
+
