@@ -57,8 +57,9 @@ def draw_box_plot():
     df_box['month'] = [d.strftime('%b') for d in df_box.date]
 
     # Draw box plots (using Seaborn)
-
-
+        #FIRST BOX PLOT "Year Wise Box Plot (Trend)"
+    fig, ax = plt.subplots(figsize=(10,9))
+    sns.boxplot(x='year', y='value', data=df_box)
 
 
 
