@@ -36,13 +36,14 @@ def draw_bar_plot():
     df_bar['month'] = pd.DatetimeIndex(df_bar.index).month
     df_bar['year'] = pd.DatetimeIndex(df_bar.index).year
 
-    value = df_bar.groupby(['year', 'month'])['value'].mean().unstack()
+    value = df_bar['value'].groupby(df_bar['year'])
     # Draw bar plot
 
     fig, ax = plt.subplots(figsize=(10,9))
     value.plot(kind='bar')
     plt.xlabel("Years")
-    plt.legend(['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'])
+    plt.ylabel("Average Page Views")
+    plt.legend(['January', 'February', 'March', 'April',])
 
     # Save image and return fig (don't change this part)
     fig.savefig('bar_plot.png')
