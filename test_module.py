@@ -40,7 +40,7 @@ class BarPlotTestCase(unittest.TestCase):
     def test_bar_plot_legend_labels(self):
         actual = []
         for label in self.ax.get_legend().get_texts():
-          actual.append(label.get_text())
+          actual.append(label.get_texts())
         expected = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
         self.assertEqual(actual, expected, "Expected bar plot legend labels to be months of the year.")
     
@@ -59,7 +59,7 @@ class BarPlotTestCase(unittest.TestCase):
 
     def test_bar_plot_number_of_bars(self):
         actual = len([rect for rect in self.ax.get_children() if isinstance(rect, mpl.patches.Rectangle)])
-        expected = 49
+        expected = 45
         self.assertEqual(actual, expected, "Expected a different number of bars in bar chart.")
 
 

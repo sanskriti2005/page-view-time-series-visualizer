@@ -2,6 +2,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import seaborn as sns
 from pandas.plotting import register_matplotlib_converters
+import calendar
 register_matplotlib_converters()
 
 # Import data (Make sure to parse dates. Consider setting index column to 'date'.)
@@ -36,14 +37,22 @@ def draw_bar_plot():
     df_bar['month'] = pd.DatetimeIndex(df_bar.index).month
     df_bar['year'] = pd.DatetimeIndex(df_bar.index).year
 
-    value = df_bar['value'].groupby(df_bar['year'])
+    value = df_bar['value'].groupby([df_bar['year'], df_bar['month']]).mean()
+    
     # Draw bar plot
 
     fig, ax = plt.subplots(figsize=(10,9))
     value.plot(kind='bar')
+    
+    plt.xticks(rotation=45) 
+    years = sorted(df_bar['year'].unique())
+    plt.xticks(range(len(years)), years) 
+
+
     plt.xlabel("Years")
     plt.ylabel("Average Page Views")
-    plt.legend(['January', 'February', 'March', 'April',])
+    months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+    plt.legend(months)
 
     # Save image and return fig (don't change this part)
     fig.savefig('bar_plot.png')
